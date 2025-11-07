@@ -1,0 +1,22 @@
+<div class="messages-cont">
+  @for(message of messages; track message.id) {
+  <div
+    class="message-align"
+    [ngClass]="{
+      'align-my': message.user.id == user.id,
+      'align-others': message.user.id != user.id
+    }"
+  >
+    <app-message
+      [message]="message"
+      [isMine]="message.user.id == user.id"
+    ></app-message>
+  </div>
+  }
+</div>
+<div class="input-bar">
+  <input type="text" maxlength="500" placeholder="Message" />
+  <button class="send-button">
+    <img class="image" src="./send-message.png" alt="" />
+  </button>
+</div>

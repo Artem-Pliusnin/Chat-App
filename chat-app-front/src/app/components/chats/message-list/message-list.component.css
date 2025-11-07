@@ -1,0 +1,78 @@
+:host {
+  width: 80%;
+  min-width: 32rem;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+}
+
+.messages-cont {
+  flex: 1;
+  overflow: scroll;
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 1rem;
+  padding: 1rem;
+  box-sizing: border-box;
+}
+
+.message-align {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+}
+
+.align-my {
+  justify-content: end;
+}
+
+.align-others {
+  justify-content: start;
+}
+
+.input-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+input {
+  flex: 1;
+  height: 2.8rem;
+  border: 1px solid rgb(180, 212, 255);
+  border-radius: 1rem;
+  padding: 0 1rem 0 1rem;
+  box-sizing: border-box;
+  font-size: 1rem;
+}
+
+.send-button {
+  border-radius: 2rem;
+  height: 2.8rem;
+  width: 2.8rem;
+  background-color: rgb(238, 245, 255);
+  align-items: center;
+  border: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: rgb(180, 212, 255);
+  cursor: pointer;
+}
+
+.send-button:hover {
+  background-color: rgb(215, 232, 255);
+}
+
+.image {
+  width: 1.8rem;
+  object-fit: contain;
+  border-radius: 50%;
+}
+
+.image:hover {
+  width: 1.9rem;
+}

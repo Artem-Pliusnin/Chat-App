@@ -1,0 +1,54 @@
+.container {
+  width: fit-content;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 0.3rem;
+  align-items: end;
+}
+
+.message-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+  background-color: rgb(238, 245, 255);
+  border-radius: 1rem;
+  padding: 0.5rem;
+  box-sizing: border-box;
+}
+
+.my-message-cont {
+  align-items: end;
+  background-color: rgb(195, 221, 255);
+}
+
+img {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+}
+
+.sender-name {
+  font-size: 0.8rem;
+  font-weight: 550;
+  color: rgb(23, 107, 135);
+}
+
+.text-cont {
+  display: flex;
+  flex-direction: row;
+  align-items: end;
+  gap: 0.3rem;
+}
+
+.message {
+  width: fit-content;
+  max-width: 20rem;
+  font-size: 1rem;
+  text-align: justify;
+}
+
+.time {
+  font-size: 0.7rem;
+  color: rgb(189, 189, 189);
+}

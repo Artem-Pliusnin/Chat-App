@@ -1,0 +1,6 @@
+@if(chat != undefined){
+<app-chat-header [chat]="chat"></app-chat-header>
+<div class="chat-cont">
+  <app-message-list [chatId]="chat.id"></app-message-list>
+</div>
+}
