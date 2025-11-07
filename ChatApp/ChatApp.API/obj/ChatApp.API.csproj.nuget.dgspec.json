@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj": {}
+    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj": {}
   },
   "projects": {
-    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj": {
+    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj",
+        "projectUniqueName": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj",
         "projectName": "ChatApp.API",
-        "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj",
+        "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj",
         "packagesPath": "/Users/mac/.nuget/packages/",
-        "outputPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/obj/",
+        "outputPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/mac/.nuget/NuGet/NuGet.Config"
@@ -47,6 +47,14 @@
         "net8.0": {
           "targetAlias": "net8.0",
           "dependencies": {
+            "AutoMapper": {
+              "target": "Package",
+              "version": "[15.1.0, )"
+            },
+            "Microsoft.AspNetCore.Authentication.JwtBearer": {
+              "target": "Package",
+              "version": "[8.0.21, )"
+            },
             "Microsoft.AspNetCore.OpenApi": {
               "target": "Package",
               "version": "[8.0.10, )"
@@ -57,9 +65,17 @@
               "target": "Package",
               "version": "[9.0.10, )"
             },
+            "Microsoft.IdentityModel.Tokens": {
+              "target": "Package",
+              "version": "[8.14.0, )"
+            },
             "Swashbuckle.AspNetCore": {
               "target": "Package",
               "version": "[6.6.2, )"
+            },
+            "System.IdentityModel.Tokens.Jwt": {
+              "target": "Package",
+              "version": "[8.14.0, )"
             }
           },
           "imports": [
