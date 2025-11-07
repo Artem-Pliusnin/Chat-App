@@ -1,6 +1,9 @@
 <div class="header">
+  <button type="button" class="logout-btn" (click)="OnAddChat()">
+    <img class="image" src="./logout.png" alt="" />
+  </button>
   <div class="user-info">
-    <img [src]="user.image" [alt]="" />
+    <img class="image" [src]="user.image" [alt]="" />
     <span class="name">{{ user.username }}</span>
   </div>
   <button type="button" (click)="OnAddChat()">+</button>
