@@ -1,17 +1,176 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj": {}
+    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj": {}
   },
   "projects": {
-    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj": {
+    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj",
+        "projectUniqueName": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj",
         "projectName": "ChatApp.API",
-        "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj",
+        "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj",
         "packagesPath": "/Users/mac/.nuget/packages/",
-        "outputPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/obj/",
+        "outputPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/mac/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Data/ChatApp.Data.csproj": {
+                "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Data/ChatApp.Data.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.AspNetCore.OpenApi": {
+              "target": "Package",
+              "version": "[8.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
+            "Swashbuckle.AspNetCore": {
+              "target": "Package",
+              "version": "[6.6.2, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.AspNetCore.App": {
+              "privateAssets": "none"
+            },
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Data/ChatApp.Data.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Data/ChatApp.Data.csproj",
+        "projectName": "ChatApp.Data",
+        "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Data/ChatApp.Data.csproj",
+        "packagesPath": "/Users/mac/.nuget/packages/",
+        "outputPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Data/obj/",
+        "projectStyle": "PackageReference",
+        "configFilePaths": [
+          "/Users/mac/.nuget/NuGet/NuGet.Config"
+        ],
+        "originalTargetFrameworks": [
+          "net8.0"
+        ],
+        "sources": {
+          "https://api.nuget.org/v3/index.json": {}
+        },
+        "frameworks": {
+          "net8.0": {
+            "targetAlias": "net8.0",
+            "projectReferences": {
+              "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Domain/ChatApp.Domain.csproj": {
+                "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Domain/ChatApp.Domain.csproj"
+              }
+            }
+          }
+        },
+        "warningProperties": {
+          "warnAsError": [
+            "NU1605"
+          ]
+        },
+        "restoreAuditProperties": {
+          "enableAudit": "true",
+          "auditLevel": "low",
+          "auditMode": "direct"
+        }
+      },
+      "frameworks": {
+        "net8.0": {
+          "targetAlias": "net8.0",
+          "dependencies": {
+            "Microsoft.EntityFrameworkCore": {
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
+            "Microsoft.EntityFrameworkCore.Design": {
+              "include": "Runtime, Build, Native, ContentFiles, Analyzers, BuildTransitive",
+              "suppressParent": "All",
+              "target": "Package",
+              "version": "[9.0.10, )"
+            },
+            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+              "target": "Package",
+              "version": "[9.0.4, )"
+            }
+          },
+          "imports": [
+            "net461",
+            "net462",
+            "net47",
+            "net471",
+            "net472",
+            "net48",
+            "net481"
+          ],
+          "assetTargetFallback": true,
+          "warn": true,
+          "frameworkReferences": {
+            "Microsoft.NETCore.App": {
+              "privateAssets": "all"
+            }
+          },
+          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/8.0.403/PortableRuntimeIdentifierGraph.json"
+        }
+      }
+    },
+    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Domain/ChatApp.Domain.csproj": {
+      "version": "1.0.0",
+      "restore": {
+        "projectUniqueName": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Domain/ChatApp.Domain.csproj",
+        "projectName": "ChatApp.Domain",
+        "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Domain/ChatApp.Domain.csproj",
+        "packagesPath": "/Users/mac/.nuget/packages/",
+        "outputPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Domain/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/mac/.nuget/NuGet/NuGet.Config"
@@ -42,16 +201,6 @@
       "frameworks": {
         "net8.0": {
           "targetAlias": "net8.0",
-          "dependencies": {
-            "Microsoft.AspNetCore.OpenApi": {
-              "target": "Package",
-              "version": "[8.0.10, )"
-            },
-            "Swashbuckle.AspNetCore": {
-              "target": "Package",
-              "version": "[6.6.2, )"
-            }
-          },
           "imports": [
             "net461",
             "net462",
@@ -64,9 +213,6 @@
           "assetTargetFallback": true,
           "warn": true,
           "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
             "Microsoft.NETCore.App": {
               "privateAssets": "all"
             }

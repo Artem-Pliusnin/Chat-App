@@ -2,6 +2,10 @@
 Microsoft Visual Studio Solution File, Format Version 12.00
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.API", "ChatApp.API\ChatApp.API.csproj", "{F22965D1-BE4C-4F7C-AFE0-EEB1B9F56202}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.Data", "ChatApp.Data\ChatApp.Data.csproj", "{466AC0C7-795E-4621-BAB1-F01431A84F74}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ChatApp.Domain", "ChatApp.Domain\ChatApp.Domain.csproj", "{73F34CCB-3244-4720-91D4-E0B852816088}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -12,5 +16,13 @@ Global
 		{F22965D1-BE4C-4F7C-AFE0-EEB1B9F56202}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F22965D1-BE4C-4F7C-AFE0-EEB1B9F56202}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F22965D1-BE4C-4F7C-AFE0-EEB1B9F56202}.Release|Any CPU.Build.0 = Release|Any CPU
+		{466AC0C7-795E-4621-BAB1-F01431A84F74}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{466AC0C7-795E-4621-BAB1-F01431A84F74}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{466AC0C7-795E-4621-BAB1-F01431A84F74}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{466AC0C7-795E-4621-BAB1-F01431A84F74}.Release|Any CPU.Build.0 = Release|Any CPU
+		{73F34CCB-3244-4720-91D4-E0B852816088}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{73F34CCB-3244-4720-91D4-E0B852816088}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{73F34CCB-3244-4720-91D4-E0B852816088}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{73F34CCB-3244-4720-91D4-E0B852816088}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 EndGlobal
