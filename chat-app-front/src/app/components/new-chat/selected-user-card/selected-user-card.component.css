@@ -1,0 +1,58 @@
+:host {
+  width: 12rem;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  border-radius: 2rem;
+  background-color: rgb(23, 107, 135);
+  border: 0.5px solid rgb(238, 245, 255);
+  align-items: center;
+  padding: 0 0.5rem 0 0.5rem;
+  box-sizing: border-box;
+}
+
+.card {
+  flex: 1;
+  height: 2.5rem;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.card img {
+  height: 2rem;
+  width: 2rem;
+  border-radius: 50%;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 0.8rem;
+  color: white;
+}
+
+button {
+  border-radius: 100%;
+  height: 1.2rem;
+  width: 1.2rem;
+  background-color: rgb(238, 245, 255);
+  align-items: center;
+  border: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: rgb(180, 212, 255);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(215, 232, 255);
+}
+
+button img {
+  width: 0.8rem;
+  object-fit: contain;
+  border-radius: 50%;
+}

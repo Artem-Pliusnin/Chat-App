@@ -1,0 +1,67 @@
+:host {
+  height: 100%;
+  width: 15rem;
+  display: flex;
+  flex-direction: column;
+  background-color: rgb(238, 245, 255);
+  border-bottom-left-radius: 2rem;
+  border-top-left-radius: 2rem;
+}
+
+.find-cont {
+  width: 100%;
+  height: fit-content;
+  display: flex;
+  flex-direction: row;
+  gap: 0.5rem;
+  padding: 0.7rem;
+  box-sizing: border-box;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2px;
+  border-top-left-radius: 2rem;
+}
+
+.users-list {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  overflow: scroll;
+  border-bottom-left-radius: 2rem;
+}
+
+input {
+  flex: 1;
+  height: 2.8rem;
+  border: 1px solid rgb(180, 212, 255);
+  border-radius: 1rem;
+  padding: 0 0.5rem 0 0.5rem;
+  box-sizing: border-box;
+  font-size: 0.8rem;
+}
+
+button {
+  all: unset;
+  border-radius: 100%;
+  height: 2.5rem;
+  width: 2.5rem;
+  background-color: rgb(238, 245, 255);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: rgb(180, 212, 255);
+  cursor: pointer;
+}
+
+button:hover {
+  background-color: rgb(215, 232, 255);
+}
+
+img {
+  width: 1.5rem;
+  height: 1.5rem;
+  object-fit: contain;
+  border-radius: 50%;
+}

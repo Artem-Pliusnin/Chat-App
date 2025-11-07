@@ -1,0 +1,25 @@
+<button type="button" class="close-button" (click)="OnClose()">
+  <img src="./close.png" alt="" />
+</button>
+<form (ngSubmit)="OnSubmit()" class="input-form">
+  <input
+    type="text"
+    maxlength="30"
+    placeholder="Chat name"
+    id="ChatName"
+    name="ChatName"
+    maxlength="300"
+    [ngClass]="{ 'border-red': isChatNameInvalid }"
+    [(ngModel)]="chatName"
+    (input)="OnStartInputName()"
+  />
+  <div class="selected-users-list">
+    <span>Selected users:</span>
+    <div class="users-cont">
+      @for(user of selectedUsers; track user.id){
+      <app-selected-user-card [user]="user"></app-selected-user-card>
+      }
+    </div>
+  </div>
+  <button class="submit-button" type="submit">Create</button>
+</form>
