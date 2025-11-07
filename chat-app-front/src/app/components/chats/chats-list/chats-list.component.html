@@ -1,0 +1,16 @@
+<div class="header">
+  <div class="user-info">
+    <img [src]="user.image" [alt]="" />
+    <span class="name">{{ user.username }}</span>
+  </div>
+  <button type="button" (click)="OnAddChat()">+</button>
+</div>
+<div class="chats-list">
+  @for (chat of chats; track chat.id) {
+  <app-chat-card
+    [chat]="chat"
+    [selected]="chat.id === selectedChatId"
+    (select)="OnChatClick($event)"
+  ></app-chat-card>
+  }
+</div>

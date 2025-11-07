@@ -1,0 +1,5 @@
+<app-chats-list (select)="OnChatSelect($event)"></app-chats-list>
+<app-chat [chat]="selectedChat"> </app-chat>
+@if(isAddingNewChat){
+<app-new-chat> </app-new-chat>
+}

@@ -1,0 +1,62 @@
+:host {
+  height: 100vh;
+  width: 26rem;
+}
+
+.header {
+  width: 100%;
+  height: 4rem;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  background-color: white;
+  box-shadow: 0 2px 2px rgba(0, 0, 0, 0.3);
+  margin-bottom: 2px;
+  padding: 0 1rem 0 1rem;
+  box-sizing: border-box;
+}
+
+.user-info {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+img {
+  height: 2.5rem;
+  width: 2.5rem;
+  border-radius: 50%;
+}
+
+.name {
+  font-weight: 500;
+  font-size: 1.2rem;
+  color: rgba(0, 0, 0, 0.7);
+}
+
+.chats-list {
+  height: calc(100% - 4rem);
+  background-color: rgb(238, 245, 255);
+  overflow: scroll;
+}
+
+button {
+  border-radius: 2rem;
+  height: 2rem;
+  width: 2rem;
+  background-color: rgb(238, 245, 255);
+  align-items: center;
+  border: 0px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  color: rgb(180, 212, 255);
+}
+
+button:hover {
+  background-color: rgb(215, 232, 255);
+  color: rgb(160, 201, 255);
+}
