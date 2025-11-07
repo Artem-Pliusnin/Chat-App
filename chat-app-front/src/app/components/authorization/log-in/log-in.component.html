@@ -1,0 +1,27 @@
+<form (ngSubmit)="OnSubmit()" class="input-form">
+  <p class="title">Log In</p>
+  <input
+    type="text"
+    class="input"
+    id="Email"
+    name="Email"
+    maxlength="300"
+    [(ngModel)]="email"
+    [ngClass]="{ 'border-red': isEmailInvalid }"
+    placeholder="Email"
+    (input)="OnStartInputEmail()"
+  />
+  <input
+    type="password"
+    class="input"
+    id="Password"
+    name="Password"
+    maxlength="300"
+    [(ngModel)]="password"
+    [ngClass]="{ 'border-red': isPasswordInvalid }"
+    placeholder="Password"
+    (input)="OnStartInputPassword()"
+  />
+  <span class="error-message">{{ errormessage }}</span>
+  <button class="button" type="submit">Sing in</button>
+</form>

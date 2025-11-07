@@ -1,0 +1,17 @@
+<div class="form-container">
+  @if(process == "sing-in"){
+  <app-log-in></app-log-in>
+  } @if(process == "sing-up"){
+  <app-register></app-register>
+  }
+  <div class="change-container">
+    @if(process == "sing-in"){
+    <p class="lable-1">New here?</p>
+    <a class="change-button" (click)="OnSingUpChange()">Sing Up</a>
+    } @if(process == "sing-up"){
+    <p class="lable-1">Already have an account?</p>
+    <a class="change-button" (click)="OnSingInChange()">Sing In</a>
+    }
+  </div>
+</div>
+<img class="image" src="./chat-image.jpg" alt="" />

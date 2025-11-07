@@ -1,0 +1,49 @@
+<form (ngSubmit)="OnSubmit()" class="input-form">
+  <p class="title">Create Account</p>
+  <input
+    type="text"
+    class="input"
+    id="Username"
+    name="Username"
+    maxlength="25"
+    [(ngModel)]="username"
+    [ngClass]="{ 'border-red': isUsernameInvalid }"
+    placeholder="Username"
+    (input)="OnStartInputUsername()"
+  />
+  <input
+    type="text"
+    class="input"
+    id="Email"
+    name="Enmil"
+    maxlength="300"
+    [(ngModel)]="email"
+    [ngClass]="{ 'border-red': isEmailInvalid }"
+    placeholder="Email"
+    (input)="OnStartInputEmail()"
+  />
+  <input
+    type="password"
+    class="input"
+    id="Password"
+    name="Password"
+    maxlength="300"
+    [(ngModel)]="password"
+    [ngClass]="{ 'border-red': isPasswordInvalid }"
+    placeholder="Password"
+    (input)="OnStartInputPassword()"
+  />
+  <input
+    type="password"
+    class="input"
+    id="Password"
+    name="Password"
+    maxlength="300"
+    [(ngModel)]="repeatPassword"
+    [ngClass]="{ 'border-red': isRepeatPasswordInvalid }"
+    placeholder="Repeat password"
+    (input)="OnStartInputRepeatedPassword()"
+  />
+  <span class="error-message">{{ errormessage }}</span>
+  <button class="button" type="submit">Sing up</button>
+</form>
