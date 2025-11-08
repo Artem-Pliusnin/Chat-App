@@ -10,6 +10,6 @@ public class ChatConfiguration : IEntityTypeConfiguration<Chat>
     {
         builder.HasKey(c => c.Id);
 
-        builder.Property(c => c.Name).IsRequired();
+        builder.Property(c => c.Name).IsRequired().HasMaxLength(30);
     }
 }
