@@ -1,4 +1,7 @@
 <button class="card" [class.active]="selected" (click)="onCardClick()">
   <img [src]="chat.image" [alt]="" />
-  <span class="name">{{ chat.name }}</span>
+  <div class="text-info-cont">
+    <span class="name">{{ chat.name }}</span>
+    <span class="message"> {{ chat.lastmessage | truncate }}</span>
+  </div>
 </button>

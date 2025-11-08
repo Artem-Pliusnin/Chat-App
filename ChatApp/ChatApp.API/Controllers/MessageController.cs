@@ -4,6 +4,7 @@ using ChatApp.API.Models.DTOs;
 using ChatApp.API.Services;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace ChatApp.API.Controllers;
 
@@ -13,13 +14,17 @@ public class MessageController : ControllerBase
 {
     private readonly IMessageService _messageService;
     private readonly IUserService _userService;
+    private readonly IHubContext<ChatHub> _hubContext;
 
-    public MessageController(IMessageService messageService, IUserService userService)
+    public MessageController(
+        IMessageService messageService, 
+        IUserService userService,
+        IHubContext<ChatHub> hubContext)
     {
         _messageService = messageService;
         _userService = userService;
+        _hubContext = hubContext;
     }
-
     [Authorize]
     [HttpGet("{chatId:guid}")]
     public async Task<IActionResult> GetMessagesByChatId(Guid chatId)
@@ -52,10 +57,13 @@ public class MessageController : ControllerBase
 
         try
         {
-
             var result = await _messageService.CreateMessageAsync(dto, currentUser.Id);
+            
+            var groupName = $"chat_{dto.ChatId}";
+            
+            await _hubContext.Clients.Group(groupName).SendAsync("ReceiveMessage", result);
 
-            return Ok(result);
+            return Ok();
         }
         catch (NullReferenceException ex)
         {

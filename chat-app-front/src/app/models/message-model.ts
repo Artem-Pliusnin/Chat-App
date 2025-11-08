@@ -5,4 +5,5 @@ export type MessageModel = {
   text: string;
   time: Date;
   user: UserInfoModel;
+  chatId: string;
 };

@@ -13,6 +13,7 @@ import { AuthorizationService } from '../../../services/authorization.service';
 import { UserInfoModel } from '../../../models/user-info-model';
 import { MessagesService } from '../../../services/messages.service';
 import { FormsModule } from '@angular/forms';
+import { Emitters } from '../../../emitters/emitters';
 
 @Component({
   selector: 'app-message-list',
@@ -34,6 +35,11 @@ export class MessageListComponent implements OnInit, OnChanges {
 
   ngOnInit(): void {
     this.user = this.authService.user;
+    Emitters.newMessageEmitter.subscribe((message) => {
+      if (message.chatId == this.chatId) {
+        this.messages.unshift(message);
+      }
+    });
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -53,17 +59,6 @@ export class MessageListComponent implements OnInit, OnChanges {
       })
       .subscribe({
         next: (res) => {
-          let newMessage = {
-            id: res.id,
-            text: res.text,
-            time: new Date(res.sendDate),
-            user: {
-              id: res.sender.id,
-              username: res.sender.userName,
-              image: './chat-image.jpg',
-            },
-          };
-          this.messages.push(newMessage);
           this.text = '';
         },
         error: (err) => {
@@ -84,6 +79,7 @@ export class MessageListComponent implements OnInit, OnChanges {
             username: m.sender.userName,
             image: './chat-image.jpg',
           },
+          chatId: m.chatId,
         }));
       },
       error: (err) => console.log(err.error),

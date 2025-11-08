@@ -28,7 +28,7 @@ public class MessageRepository : IMessageRepository
             return await _context.Messages
                 .Where(m => m.ChatId == chatId)
                 .Include(m => m.Sender)
-                .OrderBy(m => m.TimeStamp)
+                .OrderByDescending(m => m.TimeStamp)
                 .ToListAsync();
         }
 

@@ -10,6 +10,8 @@
         <PackageReference Include="AutoMapper" Version="15.1.0" />
         <PackageReference Include="Microsoft.AspNetCore.Authentication.JwtBearer" Version="8.0.21" />
         <PackageReference Include="Microsoft.AspNetCore.OpenApi" Version="8.0.10"/>
+        <PackageReference Include="Microsoft.Azure.SignalR" Version="1.32.0" />
+        <PackageReference Include="Microsoft.Azure.SignalR.AspNet" Version="1.32.0" />
         <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="9.0.10">
           <PrivateAssets>all</PrivateAssets>
           <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>

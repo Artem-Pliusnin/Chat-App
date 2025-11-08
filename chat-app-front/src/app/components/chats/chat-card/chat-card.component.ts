@@ -1,10 +1,11 @@
 import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { ChatCardModel } from '../../../models/chat-card-model';
+import { TruncatePipe } from '../../../pipes/truncate.pipe';
 
 @Component({
   selector: 'app-chat-card',
   standalone: true,
-  imports: [],
+  imports: [TruncatePipe],
   templateUrl: './chat-card.component.html',
   styleUrl: './chat-card.component.css',
 })

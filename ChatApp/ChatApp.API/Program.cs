@@ -1,4 +1,5 @@
 using System.Text;
+using ChatApp.API.Controllers;
 using ChatApp.API.Interfaces;
 using ChatApp.API.Mapping;
 using ChatApp.API.Services;
@@ -42,6 +43,13 @@ builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJw
         IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]))
     });
 
+builder.Services.AddSignalR()
+    .AddAzureSignalR(options =>
+    {
+        options.ConnectionString = builder.Configuration["Azure:SignalR:ConnectionString"];
+    });
+
+
 builder.Services.AddAutoMapper(
     cfg => { },
     typeof(AutomapperProfiles)
@@ -75,5 +83,6 @@ app.UseAuthentication();
 app.UseAuthorization();
 
 app.MapControllers();
+app.MapHub<ChatHub>("/chathub");
 
 app.Run();

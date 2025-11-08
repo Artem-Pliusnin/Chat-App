@@ -28,8 +28,19 @@
   border-radius: 50%;
 }
 
+.text-info-cont {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
 .name {
   font-weight: 500;
-  font-size: 1rem;
-  color: rgba(0, 0, 0, 0.7);
+  font-size: 0.9rem;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.message {
+  font-size: 0.7rem;
+  color: rgba(0, 0, 0, 0.5);
 }

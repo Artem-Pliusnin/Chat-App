@@ -58,6 +58,20 @@ export class ChatsListComponent implements OnInit {
     Emitters.addChatEmitter.subscribe((chat) => {
       this.chats.unshift(chat);
     });
+
+    Emitters.newMessageEmitter.subscribe((message) => {
+      if (message.chatId != this.selectedChatId) {
+        alert(message.text);
+      }
+      const chatIndex = this.chats.findIndex((c) => c.id === message.chatId);
+      if (chatIndex !== -1) {
+        const chat = this.chats[chatIndex];
+        chat.lastmessage = message.text;
+
+        this.chats.splice(chatIndex, 1);
+        this.chats.unshift(chat);
+      }
+    });
   }
 
   OnChatClick(id: string) {
