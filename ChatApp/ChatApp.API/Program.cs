@@ -40,6 +40,7 @@ builder.Services.AddScoped<IUserRepository, UserRepository>();
 
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthService, AuthService>();
+builder.Services.AddScoped<IUserService, UserService>();
 
 var app = builder.Build();
 
@@ -50,10 +51,14 @@ if (app.Environment.IsDevelopment())
     app.UseSwaggerUI();
 }
 
+app.UseRouting();
+
+app.UseAuthentication();
+
+app.UseAuthorization();
+
 app.MapControllers();
 
 app.UseHttpsRedirection();
-
-app.UseRouting();
 
 app.Run();

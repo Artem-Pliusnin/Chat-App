@@ -29,6 +29,16 @@ public class UserRepository : IUserRepository
         return await _context.Users.ToListAsync();
     }
 
+    public async Task<IEnumerable<User>> FindUsersByUsernameAsync(string username = "")
+    {
+        var users = await _context.Users
+            .Where(u => u.UserName.ToLower().Contains(username.ToLower()))
+            .OrderBy(u => u.UserName)
+            .ToListAsync();;
+
+       return users;
+    }
+
     public async Task<User> CreateAsync(User user)
     {
         await _context.Users.AddAsync(user);
