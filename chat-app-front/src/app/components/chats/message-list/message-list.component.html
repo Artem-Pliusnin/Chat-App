@@ -15,8 +15,16 @@
   }
 </div>
 <div class="input-bar">
-  <input type="text" maxlength="500" placeholder="Message" />
-  <button class="send-button">
+  <input
+    type="text"
+    maxlength="500"
+    id="Text"
+    name="Text"
+    [(ngModel)]="text"
+    placeholder="Message"
+    autocomplete="off"
+  />
+  <button class="send-button" type="button" (click)="SendMessage()">
     <img class="image" src="./send-message.png" alt="" />
   </button>
 </div>

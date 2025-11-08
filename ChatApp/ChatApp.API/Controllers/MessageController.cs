@@ -2,6 +2,7 @@ using System.Security.Claims;
 using ChatApp.API.Interfaces;
 using ChatApp.API.Models.DTOs;
 using ChatApp.API.Services;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace ChatApp.API.Controllers;
@@ -19,6 +20,7 @@ public class MessageController : ControllerBase
         _userService = userService;
     }
 
+    [Authorize]
     [HttpGet("{chatId:guid}")]
     public async Task<IActionResult> GetMessagesByChatId(Guid chatId)
     {
@@ -26,6 +28,7 @@ public class MessageController : ControllerBase
         return Ok(result);
     }
 
+    [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateMessage([FromBody] CreateMessageDto dto)
     {

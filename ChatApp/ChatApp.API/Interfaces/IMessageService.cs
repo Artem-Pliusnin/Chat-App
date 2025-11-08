@@ -5,6 +5,6 @@ namespace ChatApp.API.Interfaces;
 
 public interface IMessageService
 {
-    Task<IEnumerable<Message>> GetMessagesByChatIdAsync(Guid chatId);
-    Task<Message> CreateMessageAsync(CreateMessageDto dto, Guid senderId);
+    Task<IEnumerable<MessageDto>> GetMessagesByChatIdAsync(Guid chatId);
+    Task<MessageDto> CreateMessageAsync(CreateMessageDto dto, Guid senderId);
 }

@@ -21,12 +21,25 @@ public class MessageService : IMessageService
         _chatRepository = chatRepository;
     }
 
-    public async Task<IEnumerable<Message>> GetMessagesByChatIdAsync(Guid chatId)
+    public async Task<IEnumerable<MessageDto>> GetMessagesByChatIdAsync(Guid chatId)
     {
-        return await _messageRepository.GetByChatIDAsync(chatId);
+        var messages = await _messageRepository.GetByChatIDAsync(chatId);
+
+        return messages.Select(m => new MessageDto
+        {
+            Id = m.Id,
+            Text = m.Text,
+            Sender = new UserDto()
+            {
+                Id = m.Sender.Id,
+                UserName = m.Sender.UserName,
+            },
+            ChatId = m.ChatId,
+            SendDate = m.TimeStamp
+        }).ToList();
     }
 
-    public async Task<Message> CreateMessageAsync(CreateMessageDto dto, Guid senderId)
+    public async Task<MessageDto> CreateMessageAsync(CreateMessageDto dto, Guid senderId)
     {
         try
         {
@@ -49,7 +62,19 @@ public class MessageService : IMessageService
             var userIds = chat.Members.Select(m => m.UserId).ToList();
             await _statusRepository.CreateStatusesForMessage(message.Id, userIds);
 
-            return message;
+            return new MessageDto()
+            {
+                Id = message.Id,
+                ChatId = message.ChatId,
+                Sender = new UserDto()
+                {
+                    Id = message.Sender.Id,
+                    UserName = message.Sender.UserName,
+                },
+                Text = message.Text,
+                SendDate = message.TimeStamp,
+                
+            };
         }
         catch (Exception ex)
         {
