@@ -2,7 +2,7 @@
   @if(process == "sing-in"){
   <app-log-in></app-log-in>
   } @if(process == "sing-up"){
-  <app-register></app-register>
+  <app-register (toSignIn)="OnSingInChange()"></app-register>
   }
   <div class="change-container">
     @if(process == "sing-in"){

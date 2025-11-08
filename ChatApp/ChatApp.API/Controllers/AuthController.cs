@@ -26,7 +26,7 @@ public class AuthController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest("Check your information");
+            return BadRequest(new { message = "Check your information"});
         }
 
         try
@@ -36,7 +36,7 @@ public class AuthController : ControllerBase
 
             if (!result.Succeeded)
             {
-                return Unauthorized("Invalid credentials");
+                return Unauthorized(new { message = "Invalid credentials"});
             }
 
             var token = _tokenService.CreateToken(user);
@@ -60,7 +60,9 @@ public class AuthController : ControllerBase
     {
         if (!ModelState.IsValid)
         {
-            return BadRequest("Check your sign up form.");
+            return BadRequest(new {
+                message = "Check your sign up form."
+            });
         }
 
         var user = _mapper.Map<User>(dto);
@@ -69,13 +71,19 @@ public class AuthController : ControllerBase
         {
             if (result.IsEmailAlreadyExists)
             {
-                return BadRequest("Email already taken");
+                return BadRequest(new {
+                    message = "Email already taken"
+                });
             }
             if (result.IsUserNameAlreadyExists)
             {
-                return BadRequest("Username already taken");
+                return BadRequest(new {
+                    message = "Username already taken"
+                });
             }
-            return BadRequest("SignUp failed. Try again.");
+            return BadRequest(new {
+                message = "SignUp failed. Try again."
+            });
         }
         return Ok();
     }

@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { ChatsListComponent } from '../../components/chats/chats-list/chats-list.component';
 import { ChatComponent } from '../../components/chats/chat/chat.component';
 import { ChatCardModel } from '../../models/chat-card-model';
@@ -20,7 +20,7 @@ export class ChatsPageComponent implements OnInit {
     this.selectedChat = chat;
   }
 
-  ngOnInit(): void {
+  async ngOnInit(): Promise<void> {
     Emitters.addingNewChat.subscribe((value) => {
       console.log(value);
       this.isAddingNewChat = value;

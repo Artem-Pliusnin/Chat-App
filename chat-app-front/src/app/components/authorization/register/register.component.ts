@@ -1,6 +1,7 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, EventEmitter, inject, Output } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthorizationService } from '../../../services/authorization.service';
 
 @Component({
   selector: 'app-register',
@@ -21,10 +22,27 @@ export class RegisterComponent {
   isUsernameInvalid = false;
   isRepeatPasswordInvalid = false;
 
+  private authService = inject(AuthorizationService);
+
+  @Output() toSignIn = new EventEmitter();
+
   OnSubmit() {
     if (!this.validate()) {
       return;
     }
+
+    this.authService
+      .signUp({
+        username: this.username,
+        email: this.email,
+        password: this.password,
+      })
+      .subscribe({
+        next: (res) => {
+          this.toSignIn.emit();
+        },
+        error: (err) => (this.errormessage = err.error.message),
+      });
   }
 
   validate(): boolean {

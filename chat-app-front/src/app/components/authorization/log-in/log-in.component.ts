@@ -1,6 +1,8 @@
 import { CommonModule } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { FormsModule } from '@angular/forms';
+import { AuthorizationService } from '../../../services/authorization.service';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-log-in',
@@ -17,10 +19,23 @@ export class LogInComponent {
   isEmailInvalid = false;
   isPasswordInvalid = false;
 
+  private authService = inject(AuthorizationService);
+  private router = inject(Router);
+
   OnSubmit() {
     if (!this.validate()) {
       return;
     }
+
+    this.authService
+      .signIn({ email: this.email, password: this.password })
+      .subscribe({
+        next: (res) => {
+          localStorage.setItem('jwt', res.jwtToken);
+          this.router.navigate(['']);
+        },
+        error: (err) => (this.errormessage = err.error.message),
+      });
   }
 
   validate(): boolean {

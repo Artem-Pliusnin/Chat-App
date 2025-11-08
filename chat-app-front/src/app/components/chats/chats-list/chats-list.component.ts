@@ -4,6 +4,7 @@ import { ChatCardModel } from '../../../models/chat-card-model';
 import { UserInfoModel } from '../../../models/user-info-model';
 import { AuthorizationService } from '../../../services/authorization.service';
 import { Emitters } from '../../../emitters/emitters';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-chats-list',
@@ -19,6 +20,7 @@ export class ChatsListComponent implements OnInit {
   @Output() select = new EventEmitter();
 
   private authservice = inject(AuthorizationService);
+  private router = inject(Router);
 
   chats: ChatCardModel[] = [
     { id: '1', name: 'dsjnskcnskva', image: './chat-image.jpg' },
@@ -35,7 +37,21 @@ export class ChatsListComponent implements OnInit {
   ];
 
   ngOnInit(): void {
-    this.user = this.authservice.user;
+    this.authservice.tryGetCurrentUser().subscribe({
+      next: (res) => {
+        this.authservice.initUser({
+          id: res.id,
+          username: res.userName,
+          image: './chat-image.jpg',
+        });
+
+        console.log(this.authservice.user);
+        this.user = this.authservice.user;
+      },
+      error: (err) => {
+        this.router.navigate(['/log-in']);
+      },
+    });
   }
 
   OnChatClick(id: string) {
@@ -45,5 +61,10 @@ export class ChatsListComponent implements OnInit {
 
   OnAddChat() {
     Emitters.addingNewChat.emit(true);
+  }
+
+  LogOut() {
+    localStorage.removeItem('jwt');
+    this.router.navigate(['/log-in']);
   }
 }
