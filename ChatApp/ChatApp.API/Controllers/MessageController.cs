@@ -1,0 +1,70 @@
+using System.Security.Claims;
+using ChatApp.API.Interfaces;
+using ChatApp.API.Models.DTOs;
+using ChatApp.API.Services;
+using Microsoft.AspNetCore.Mvc;
+
+namespace ChatApp.API.Controllers;
+
+[Route("api/messages")]
+[ApiController]
+public class MessageController : ControllerBase
+{
+    private readonly IMessageService _messageService;
+    private readonly IUserService _userService;
+
+    public MessageController(IMessageService messageService, IUserService userService)
+    {
+        _messageService = messageService;
+        _userService = userService;
+    }
+
+    [HttpGet("{chatId:guid}")]
+    public async Task<IActionResult> GetMessagesByChatId(Guid chatId)
+    {
+        var result = await _messageService.GetMessagesByChatIdAsync(chatId);
+        return Ok(result);
+    }
+
+    [HttpPost]
+    public async Task<IActionResult> CreateMessage([FromBody] CreateMessageDto dto)
+    {
+        if (!ModelState.IsValid)
+        {
+            return BadRequest(ModelState);
+        }
+        
+        var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+        if (string.IsNullOrEmpty(email))
+        {
+            return Unauthorized();
+        }
+        
+        var currentUser = await _userService.GetCurrentUserInfo(email);
+        if (currentUser == null)
+        {
+            return Unauthorized();
+        }
+
+        try
+        {
+
+            var result = await _messageService.CreateMessageAsync(dto, currentUser.Id);
+
+            return Ok(result);
+        }
+        catch (NullReferenceException ex)
+        {
+            return BadRequest(ex.Message);
+        }
+        catch (Exception ex)
+        {
+            return StatusCode(500, new
+            {
+                message = "Error while creating message",
+                error = ex.Message
+            });
+        }
+    }
+}
