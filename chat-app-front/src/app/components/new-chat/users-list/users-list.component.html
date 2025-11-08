@@ -1,6 +1,15 @@
 <div class="find-cont">
-  <input type="text" placeholder="Username" />
-  <button><img src="./find.png" alt="" /></button>
+  <input
+    type="text"
+    id="Username"
+    name="Username"
+    maxlength="30"
+    [(ngModel)]="username"
+    placeholder="Username"
+  />
+  <button type="button" (click)="onFind()">
+    <img src="./find.png" alt="" />
+  </button>
 </div>
 <div class="users-list">
   @for (user of users; track user.id) {

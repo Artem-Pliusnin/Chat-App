@@ -58,11 +58,11 @@ public class UserController : ControllerBase
     
     [Authorize]
     [HttpGet("search")]
-    public async Task<IActionResult> SearchUsers([FromQuery] string username, [FromQuery] Guid[] excludeIds)
+    public async Task<IActionResult> SearchUsers([FromQuery] string? username, [FromQuery] Guid[] excludeIds)
     {
         try
         {
-            var users = await _userService.FindUsers(username, excludeIds);
+            var users = await _userService.FindUsers(username ?? string.Empty, excludeIds);
 
             var response = _mapper.Map<IEnumerable<UserDto>>(users);
 

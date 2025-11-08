@@ -13,7 +13,10 @@
     [(ngModel)]="chatName"
     (input)="OnStartInputName()"
   />
-  <div class="selected-users-list">
+  <div
+    class="selected-users-list"
+    [ngClass]="{ 'border-red': isNotEnoufUsers }"
+  >
     <span>Selected users:</span>
     <div class="users-cont">
       @for(user of selectedUsers; track user.id){

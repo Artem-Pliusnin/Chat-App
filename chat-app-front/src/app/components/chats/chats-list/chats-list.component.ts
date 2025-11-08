@@ -5,6 +5,7 @@ import { UserInfoModel } from '../../../models/user-info-model';
 import { AuthorizationService } from '../../../services/authorization.service';
 import { Emitters } from '../../../emitters/emitters';
 import { Router } from '@angular/router';
+import { ChatsService } from '../../../services/chats.service';
 
 @Component({
   selector: 'app-chats-list',
@@ -20,21 +21,10 @@ export class ChatsListComponent implements OnInit {
   @Output() select = new EventEmitter();
 
   private authservice = inject(AuthorizationService);
+  private chatsservice = inject(ChatsService);
   private router = inject(Router);
 
-  chats: ChatCardModel[] = [
-    { id: '1', name: 'dsjnskcnskva', image: './chat-image.jpg' },
-    { id: '2', name: 'New super chat', image: './chat-image.jpg' },
-    { id: '3', name: 'New super chat', image: './chat-image.jpg' },
-    { id: '4', name: 'New super chat', image: './chat-image.jpg' },
-    { id: '5', name: 'New super chat', image: './chat-image.jpg' },
-    { id: '6', name: 'New super chat', image: './chat-image.jpg' },
-    { id: '7', name: 'New super chat', image: './chat-image.jpg' },
-    { id: '8', name: 'New super chat', image: './chat-image.jpg' },
-    { id: '9', name: 'New super chat', image: './chat-image.jpg' },
-    { id: '10', name: 'New super chat', image: './chat-image.jpg' },
-    { id: '11', name: 'New super chat', image: './chat-image.jpg' },
-  ];
+  chats: ChatCardModel[] = [];
 
   ngOnInit(): void {
     this.authservice.tryGetCurrentUser().subscribe({
@@ -44,13 +34,29 @@ export class ChatsListComponent implements OnInit {
           username: res.userName,
           image: './chat-image.jpg',
         });
-
-        console.log(this.authservice.user);
         this.user = this.authservice.user;
+
+        this.chatsservice.getCurrentUserChats().subscribe({
+          next: (res) => {
+            this.chats = res.map((c) => ({
+              id: c.id,
+              name: c.name,
+              lastmessage: c.lastMessage,
+              image: './chat-image.jpg',
+            }));
+          },
+          error: (err) => {
+            console.log(err.error);
+          },
+        });
       },
       error: (err) => {
         this.router.navigate(['/log-in']);
       },
+    });
+
+    Emitters.addChatEmitter.subscribe((chat) => {
+      this.chats.unshift(chat);
     });
   }
 
