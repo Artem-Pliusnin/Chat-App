@@ -61,7 +61,8 @@ export class ChatsListComponent implements OnInit {
 
     Emitters.newMessageEmitter.subscribe((message) => {
       if (message.chatId != this.selectedChatId) {
-        alert(message.text);
+        alert(message.sentiment);
+        console.log(message);
       }
       const chatIndex = this.chats.findIndex((c) => c.id === message.chatId);
       if (chatIndex !== -1) {

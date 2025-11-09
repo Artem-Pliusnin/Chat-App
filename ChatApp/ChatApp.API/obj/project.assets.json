@@ -20,6 +20,24 @@
           }
         }
       },
+      "Azure.AI.TextAnalytics/5.3.0": {
+        "type": "package",
+        "dependencies": {
+          "Azure.Core": "1.33.0",
+          "Microsoft.Bcl.AsyncInterfaces": "1.1.1",
+          "System.Text.Json": "4.7.2"
+        },
+        "compile": {
+          "lib/netstandard2.0/Azure.AI.TextAnalytics.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.0/Azure.AI.TextAnalytics.dll": {
+            "related": ".xml"
+          }
+        }
+      },
       "Azure.Core/1.38.0": {
         "type": "package",
         "dependencies": {
@@ -1713,6 +1731,9 @@
       "ChatApp.Domain/1.0.0": {
         "type": "project",
         "framework": ".NETCoreApp,Version=v8.0",
+        "dependencies": {
+          "Azure.AI.TextAnalytics": "5.3.0"
+        },
         "compile": {
           "bin/placeholder/ChatApp.Domain.dll": {}
         },
@@ -1741,6 +1762,22 @@
         "lib/net9.0/AutoMapper.xml",
         "lib/netstandard2.0/AutoMapper.dll",
         "lib/netstandard2.0/AutoMapper.xml"
+      ]
+    },
+    "Azure.AI.TextAnalytics/5.3.0": {
+      "sha512": "QFGaADxfpEcvUPGqIo2CaXUiR00JN1sU14cgmo4wLgizP7v5WGJT9DYqFrzOBPO/tDYaup9mE4secRahe5xVcw==",
+      "type": "package",
+      "path": "azure.ai.textanalytics/5.3.0",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "CHANGELOG.md",
+        "README.md",
+        "azure.ai.textanalytics.5.3.0.nupkg.sha512",
+        "azure.ai.textanalytics.nuspec",
+        "azureicon.png",
+        "lib/netstandard2.0/Azure.AI.TextAnalytics.dll",
+        "lib/netstandard2.0/Azure.AI.TextAnalytics.xml"
       ]
     },
     "Azure.Core/1.38.0": {
@@ -4852,6 +4889,7 @@
   "projectFileDependencyGroups": {
     "net8.0": [
       "AutoMapper >= 15.1.0",
+      "Azure.AI.TextAnalytics >= 5.3.0",
       "ChatApp.Data >= 1.0.0",
       "Microsoft.AspNetCore.Authentication.JwtBearer >= 8.0.21",
       "Microsoft.AspNetCore.OpenApi >= 8.0.10",
@@ -4912,6 +4950,10 @@
           "AutoMapper": {
             "target": "Package",
             "version": "[15.1.0, )"
+          },
+          "Azure.AI.TextAnalytics": {
+            "target": "Package",
+            "version": "[5.3.0, )"
           },
           "Microsoft.AspNetCore.Authentication.JwtBearer": {
             "target": "Package",

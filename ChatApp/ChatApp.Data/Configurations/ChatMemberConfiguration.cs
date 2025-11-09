@@ -10,6 +10,8 @@ public class ChatMemberConfiguration : IEntityTypeConfiguration<ChatMember>
     {
         builder.HasKey(c=> c.Id);
         
+        builder.HasIndex(c => new { c.UserId, c.ChatId }).IsUnique();
+        
         builder.Property(c=> c.ChatId).IsRequired();
 
         builder.Property(c=> c.UserId).IsRequired();

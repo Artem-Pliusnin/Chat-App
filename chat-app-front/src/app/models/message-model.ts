@@ -6,4 +6,5 @@ export type MessageModel = {
   time: Date;
   user: UserInfoModel;
   chatId: string;
+  sentiment: number;
 };

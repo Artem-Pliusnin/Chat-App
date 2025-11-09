@@ -1,4 +1,4 @@
-import { UserDto } from "./UserDto";
+import { UserDto } from './UserDto';
 
 export type MessageDto = {
   id: string;
@@ -6,4 +6,5 @@ export type MessageDto = {
   sender: UserDto;
   chatId: string;
   sendDate: string;
+  sentiment: number;
 };

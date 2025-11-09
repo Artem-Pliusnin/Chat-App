@@ -1,4 +1,6 @@
 using System.Text;
+using Azure;
+using Azure.AI.TextAnalytics;
 using ChatApp.API.Controllers;
 using ChatApp.API.Interfaces;
 using ChatApp.API.Mapping;
@@ -49,6 +51,15 @@ builder.Services.AddSignalR()
         options.ConnectionString = builder.Configuration["Azure:SignalR:ConnectionString"];
     });
 
+builder.Services.AddSingleton(serviceProvider =>
+{
+    var config = serviceProvider.GetRequiredService<IConfiguration>();
+    var credential = new AzureKeyCredential(config["Azure:TextAnalytics:Key"]);
+    var endpoint = new Uri(config["Azure:TextAnalytics:Endpoint"]);
+
+    return new TextAnalyticsClient(endpoint, credential);
+});
+
 
 builder.Services.AddAutoMapper(
     cfg => { },
@@ -65,6 +76,7 @@ builder.Services.AddScoped<IAuthService, AuthService>();
 builder.Services.AddScoped<IUserService, UserService>();
 builder.Services.AddScoped<IChatService, ChatService>();
 builder.Services.AddScoped<IMessageService, MessageService>();
+builder.Services.AddScoped<ICognitiveService, CognitiveService>();
 
 var app = builder.Build();
 

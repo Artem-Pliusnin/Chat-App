@@ -79,6 +79,7 @@ export class MessagesService {
           image: './chat-image.jpg',
         },
         chatId: message.chatId,
+        sentiment: message.sentiment,
       };
 
       Emitters.newMessageEmitter.emit(newMessage);

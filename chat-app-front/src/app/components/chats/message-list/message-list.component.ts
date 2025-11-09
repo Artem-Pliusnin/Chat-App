@@ -80,6 +80,7 @@ export class MessageListComponent implements OnInit, OnChanges {
             image: './chat-image.jpg',
           },
           chatId: m.chatId,
+          sentiment: m.sentiment,
         }));
       },
       error: (err) => console.log(err.error),

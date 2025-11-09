@@ -1,3 +1,5 @@
+using Azure.AI.TextAnalytics;
+
 namespace ChatApp.Domain;
 
 public class Message
@@ -7,6 +9,8 @@ public class Message
     public Guid ChatId { get; set; }
     public string Text { get; set; }
     public DateTime TimeStamp { get; set; }
+    
+    public TextSentiment Sentiment { get; set; } = TextSentiment.Mixed;
     
     public User Sender { get; set; }
     public Chat Chat { get; set; }

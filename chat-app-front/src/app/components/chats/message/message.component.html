@@ -2,7 +2,10 @@
   @if(!isMine){
   <img [src]="message.user.image" [alt]="" />
   <div class="message-cont">
-    <span class="sender-name">{{ message.user.username }}</span>
+    <div class="message-header">
+      <span class="sender-name">{{ message.user.username }}</span>
+      <span class="sentiment">{{ message.sentiment | sentimentEmoji }}</span>
+    </div>
     <div class="text-cont">
       <span class="message">{{ message.text }}</span>
       <span class="time">{{ message.time | timePipe }}</span>
@@ -10,7 +13,10 @@
   </div>
   } @else {
   <div class="message-cont my-message-cont">
-    <span class="sender-name">{{ message.user.username }}</span>
+    <div class="message-header">
+      <span class="sentiment">{{ message.sentiment | sentimentEmoji }}</span>
+      <span class="sender-name">{{ message.user.username }}</span>
+    </div>
     <div class="text-cont">
       <span class="message">{{ message.text }}</span>
       <span class="time">{{ message.time | timePipe }}</span>

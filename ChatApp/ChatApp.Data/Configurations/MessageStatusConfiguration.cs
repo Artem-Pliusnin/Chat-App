@@ -19,5 +19,7 @@ public class MessageStatusConfiguration: IEntityTypeConfiguration<MessageStatus>
         builder.HasOne(m=> m.Message).WithMany(m => m.MessageStatuses).HasForeignKey(m => m.MessageId);
 
         builder.Property(m => m.IsRead).HasDefaultValue(false);
+        
+        builder.HasIndex(m => new { m.UserId, m.MessageId }).IsUnique();
     }
 }

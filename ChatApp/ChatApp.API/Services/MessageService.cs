@@ -10,15 +10,18 @@ public class MessageService : IMessageService
     private readonly IMessageRepository _messageRepository;
     private readonly IMessageStatusRepository _statusRepository;
     private readonly IChatRepository _chatRepository;
+    private readonly ICognitiveService _cognitiveService;
 
     public MessageService(
         IMessageRepository messageRepository,
         IMessageStatusRepository statusRepository,
-        IChatRepository chatRepository)
+        IChatRepository chatRepository, 
+        ICognitiveService cognitiveService)
     {
         _messageRepository = messageRepository;
         _statusRepository = statusRepository;
         _chatRepository = chatRepository;
+        _cognitiveService = cognitiveService;
     }
 
     public async Task<IEnumerable<MessageDto>> GetMessagesByChatIdAsync(Guid chatId)
@@ -35,7 +38,8 @@ public class MessageService : IMessageService
                 UserName = m.Sender.UserName,
             },
             ChatId = m.ChatId,
-            SendDate = m.TimeStamp
+            SendDate = m.TimeStamp,
+            Sentiment = m.Sentiment,
         }).ToList();
     }
 
@@ -48,13 +52,16 @@ public class MessageService : IMessageService
             {
                 throw new NullReferenceException("Chat not found");
             }
+            
+            var sentiment = await _cognitiveService.AnalyzeSentimentAsync(dto.Text);
 
             var message = new Message
             {
                 ChatId = dto.ChatId,
                 SenderId = senderId,
                 Text = dto.Text,
-                TimeStamp = DateTime.UtcNow
+                TimeStamp = DateTime.UtcNow,
+                Sentiment = sentiment,
             };
 
             await _messageRepository.CreateAsync(message);
@@ -73,7 +80,7 @@ public class MessageService : IMessageService
                 },
                 Text = message.Text,
                 SendDate = message.TimeStamp,
-                
+                Sentiment = message.Sentiment,
             };
         }
         catch (Exception ex)
