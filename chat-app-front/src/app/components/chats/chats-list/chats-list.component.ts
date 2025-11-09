@@ -1,4 +1,11 @@
-import { Component, EventEmitter, inject, OnInit, Output } from '@angular/core';
+import {
+  Component,
+  EventEmitter,
+  inject,
+  OnDestroy,
+  OnInit,
+  Output,
+} from '@angular/core';
 import { ChatCardComponent } from '../chat-card/chat-card.component';
 import { ChatCardModel } from '../../../models/chat-card-model';
 import { UserInfoModel } from '../../../models/user-info-model';
@@ -16,7 +23,7 @@ import { MessagesService } from '../../../services/messages.service';
   templateUrl: './chats-list.component.html',
   styleUrl: './chats-list.component.css',
 })
-export class ChatsListComponent implements OnInit {
+export class ChatsListComponent implements OnInit, OnDestroy {
   selectedChatId?: string;
   user!: UserInfoModel;
 
@@ -28,9 +35,12 @@ export class ChatsListComponent implements OnInit {
   private notificationService = inject(NotificationService);
   private router = inject(Router);
 
+  private addChatSub?: any;
+  private newMessageSub?: any;
+
   chats: ChatCardModel[] = [];
 
-  ngOnInit(): void {
+  async ngOnInit() {
     this.authservice.tryGetCurrentUser().subscribe({
       next: (res) => {
         this.authservice.initUser({
@@ -46,11 +56,17 @@ export class ChatsListComponent implements OnInit {
       },
     });
 
-    Emitters.addChatEmitter.subscribe((chat) => {
-      window.location.href = window.location.href;
+    this.addChatSub = Emitters.addChatEmitter.subscribe((newChat) => {
+      this.chats.unshift({
+        id: newChat.id,
+        name: newChat.name,
+        lastmessage: newChat.lastMessage,
+        hasUnreadMessages: newChat.hasUnreadMessages,
+        image: './chat-image.jpg',
+      });
     });
 
-    Emitters.newMessageEmitter.subscribe((message) => {
+    this.newMessageSub = Emitters.newMessageEmitter.subscribe((message) => {
       const chatIndex = this.chats.findIndex((c) => c.id === message.chatId);
       if (chatIndex !== -1) {
         const chat = this.chats[chatIndex];
@@ -65,6 +81,14 @@ export class ChatsListComponent implements OnInit {
         }
       }
     });
+
+    await this.messagesService.connect();
+  }
+
+  ngOnDestroy() {
+    this.addChatSub?.unsubscribe();
+    this.newMessageSub?.unsubscribe();
+    this.messagesService.disconnect();
   }
 
   OnChatClick(id: string) {

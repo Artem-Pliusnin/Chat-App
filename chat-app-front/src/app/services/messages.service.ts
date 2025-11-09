@@ -4,10 +4,10 @@ import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
 import { NewMessageDto } from '../models/Dtos/NewMessageDto';
 import { MessageDto } from '../models/Dtos/MessageDto';
-import { AuthorizationService } from './authorization.service';
 import { MessageModel } from '../models/message-model';
 import * as signalR from '@microsoft/signalr';
 import { Emitters } from '../emitters/emitters';
+import { ChatDto } from '../models/Dtos/ChatDto';
 
 @Injectable({
   providedIn: 'root',
@@ -16,10 +16,7 @@ export class MessagesService {
   private apiUrl = `${environment.apiUrl}/messages`;
   private hubConnection!: signalR.HubConnection;
 
-  constructor(
-    private http: HttpClient,
-    private authService: AuthorizationService
-  ) {}
+  constructor(private http: HttpClient) {}
 
   getMessagesByChatId(chatId: string): Observable<MessageDto[]> {
     return this.http.get<MessageDto[]>(`${this.apiUrl}/${chatId}`);
@@ -88,16 +85,17 @@ export class MessagesService {
 
       Emitters.newMessageEmitter.emit(newMessage);
     });
+
+    this.hubConnection.on('NewChatCreated', (chat: ChatDto) => {
+      Emitters.addChatEmitter.emit(chat);
+    });
   }
 
-  async disconnect(): Promise<void> {
+  async disconnect() {
     if (this.hubConnection) {
-      try {
-        await this.hubConnection.stop();
-        console.log('Disconnected from SignalR hub');
-      } catch (err) {
-        console.error('Error disconnecting from SignalR:', err);
-      }
+      await this.hubConnection.stop();
+      this.hubConnection = null!;
+      console.log('SignalR disconnected');
     }
   }
 }

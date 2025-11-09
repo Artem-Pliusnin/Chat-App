@@ -13,7 +13,7 @@ import { MessagesService } from '../../services/messages.service';
   templateUrl: './chats-page.component.html',
   styleUrl: './chats-page.component.css',
 })
-export class ChatsPageComponent implements OnInit, OnDestroy {
+export class ChatsPageComponent implements OnInit {
   selectedChat!: ChatCardModel;
   isAddingNewChat: boolean = false;
 
@@ -25,14 +25,7 @@ export class ChatsPageComponent implements OnInit, OnDestroy {
 
   async ngOnInit() {
     Emitters.addingNewChat.subscribe((value) => {
-      console.log(value);
       this.isAddingNewChat = value;
     });
-
-    await this.messagesService.connect();
-  }
-
-  async ngOnDestroy() {
-    await this.messagesService.disconnect();
   }
 }

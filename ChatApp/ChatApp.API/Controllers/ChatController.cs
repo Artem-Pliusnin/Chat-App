@@ -2,8 +2,10 @@ using System.Security.Claims;
 using ChatApp.API.Interfaces;
 using ChatApp.API.Models.DTOs;
 using ChatApp.API.Services;
+using ChatApp.API.Shared;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.SignalR;
 
 namespace ChatApp.API.Controllers;
 
@@ -13,11 +15,13 @@ public class ChatController : ControllerBase
 {
     private readonly IChatService _chatService;
     private readonly IUserService _userService;
+    private readonly IHubContext<ChatHub> _hubContext;
 
-    public ChatController(IChatService chatService, IUserService userService)
+    public ChatController(IChatService chatService, IUserService userService, IHubContext<ChatHub> hubContext)
     {
         _chatService = chatService;
         _userService = userService;
+        _hubContext = hubContext;
     }
 
     [Authorize]
@@ -64,7 +68,19 @@ public class ChatController : ControllerBase
         try
         {
             var chat = await _chatService.CreateChatAsync(dto);
-            return Ok(chat);
+            foreach (var memberId in dto.MemberIds)
+            {
+                var connections = ConnectionMapping.GetConnections(memberId);
+
+                foreach (var connectionId in connections)
+                {
+                    await _hubContext.Groups.AddToGroupAsync(connectionId, $"chat_{chat.Id}");
+                    
+                    await _hubContext.Clients.Client(connectionId)
+                        .SendAsync("NewChatCreated", chat);
+                }
+            }
+            return Ok();
         }
         catch (Exception ex)
         { 

@@ -6,7 +6,6 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ChatsService } from '../../../services/chats.service';
 import { ChatCardModel } from '../../../models/chat-card-model';
-import { MessagesService } from '../../../services/messages.service';
 
 @Component({
   selector: 'app-new-chat-form',
@@ -22,7 +21,6 @@ export class NewChatFormComponent implements OnInit {
   selectedUsers: UserInfoModel[] = [];
 
   private chatsService = inject(ChatsService);
-  private messagesService = inject(MessagesService);
 
   OnSubmit() {
     if (!this.validate()) {
@@ -34,14 +32,6 @@ export class NewChatFormComponent implements OnInit {
       .createChat({ name: this.chatName, memberIds: members })
       .subscribe({
         next: (res) => {
-          let newChat: ChatCardModel = {
-            id: res.id,
-            name: res.name,
-            lastmessage: res.lastMessage,
-            image: './chat-image.jpg',
-            hasUnreadMessages: res.hasUnreadMessages,
-          };
-          Emitters.addChatEmitter.emit(newChat);
           Emitters.addingNewChat.emit(false);
         },
         error: (err) => {

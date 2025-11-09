@@ -64,7 +64,8 @@ public class ChatService: IChatService
             {
                 Id = createdChat.Id,
                 Name = createdChat.Name,
-                LastMessage = ""
+                LastMessage = "",
+                HasUnreadMessages = false,
             };
         }
 }

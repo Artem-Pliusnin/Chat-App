@@ -1,6 +1,7 @@
 using System.Security.Claims;
 using ChatApp.API.Interfaces;
 using ChatApp.API.Models.DTOs;
+using ChatApp.API.Shared;
 using ChatApp.Data.Interfaces;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.SignalR;
@@ -37,6 +38,8 @@ public class ChatHub : Hub
             await base.OnConnectedAsync();
             return;
         }
+        
+        ConnectionMapping.Add(userId.Value, Context.ConnectionId);
 
         try
         {
@@ -60,8 +63,11 @@ public class ChatHub : Hub
     public override async Task OnDisconnectedAsync(Exception? exception)
     {
         var userId = await GetUserId();
-        Console.WriteLine($"User {userId} disconnected");
-        
+        if (userId != null)
+        {
+            ConnectionMapping.Remove(userId.Value, Context.ConnectionId);
+        }
+
         await base.OnDisconnectedAsync(exception);
     }
     
@@ -77,7 +83,7 @@ public class ChatHub : Hub
             throw new HubException($"Failed to broadcast message: {ex.Message}");
         }
     }
-    
+
     private async Task<Guid?> GetUserId()
     {
         var email = Context.User?.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
