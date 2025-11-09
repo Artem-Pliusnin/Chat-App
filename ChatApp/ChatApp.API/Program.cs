@@ -24,13 +24,15 @@ builder.Services.AddCors(opts =>
             .AllowAnyHeader()
             .AllowAnyMethod()
             .AllowCredentials()
-            .WithOrigins("http://localhost:4200");
+            .WithOrigins("http://localhost:4200", "https://proud-grass-0cb16e503-preview.westeurope.3.azurestaticapps.net");
     });
 });
 
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
-builder.Services.AddDbContext<ChatDbContext>(opt => opt.UseNpgsql(builder.Configuration.GetConnectionString("ChatAppConnection")));
+builder.Services.AddDbContext<ChatDbContext>(opt => 
+    opt.UseSqlServer(builder.Configuration.GetConnectionString("ChatAppConnection")));
+
 builder.Services.AddControllers();
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme).AddJwtBearer(

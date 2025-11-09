@@ -1,5 +1,7 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://localhost:7083/api',
-  hubUrl: 'https://localhost:7083',
+  apiUrl:
+    'https://chat-app-123-ctexfudsd5fphghb.westeurope-01.azurewebsites.net/api',
+  hubUrl:
+    'https://chat-app-123-ctexfudsd5fphghb.westeurope-01.azurewebsites.net',
 };

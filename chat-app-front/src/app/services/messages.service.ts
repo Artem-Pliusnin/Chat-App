@@ -46,49 +46,65 @@ export class MessagesService {
       return;
     }
 
-    this.hubConnection = new signalR.HubConnectionBuilder()
-      .withUrl(`${environment.hubUrl}/chathub`, {
-        accessTokenFactory: () => token,
-        skipNegotiation: false,
-        transport:
-          signalR.HttpTransportType.WebSockets |
-          signalR.HttpTransportType.LongPolling,
-      })
-      .withAutomaticReconnect({
-        nextRetryDelayInMilliseconds: (retryContext) => {
-          if (retryContext.previousRetryCount === 0) return 0;
-          if (retryContext.previousRetryCount === 1) return 2000;
-          if (retryContext.previousRetryCount === 2) return 10000;
-          return 30000;
-        },
-      })
-      .build();
+    try {
+      const negotiateData = await this.http
+        .post<any>(`${environment.hubUrl}/chathub/negotiate`, {})
+        .toPromise();
 
-    this.hubConnection
-      .start()
-      .then(() => console.log('Connected to SignalR hub'))
-      .catch((err) => console.error('Error connecting to SignalR hub:', err));
+      if (!negotiateData.url || !negotiateData.accessToken) {
+        throw new Error(
+          'Invalid negotiate response: missing url or accessToken'
+        );
+      }
 
-    this.hubConnection.on('ReceiveMessage', (message: MessageDto) => {
-      const newMessage: MessageModel = {
-        id: message.id,
-        text: message.text,
-        time: new Date(message.sendDate),
-        user: {
-          id: message.sender.id,
-          username: message.sender.userName,
-          image: './chat-image.jpg',
-        },
-        chatId: message.chatId,
-        sentiment: message.sentiment,
-      };
+      this.hubConnection = new signalR.HubConnectionBuilder()
+        .withUrl(negotiateData.url, {
+          accessTokenFactory: () => negotiateData.accessToken,
+          skipNegotiation: true,
+          transport: signalR.HttpTransportType.WebSockets,
+        })
+        .withAutomaticReconnect({
+          nextRetryDelayInMilliseconds: (retryContext) => {
+            if (retryContext.previousRetryCount === 0) return 0;
+            if (retryContext.previousRetryCount === 1) return 2000;
+            if (retryContext.previousRetryCount === 2) return 10000;
+            return 30000;
+          },
+        })
+        .configureLogging(signalR.LogLevel.Information)
+        .build();
 
-      Emitters.newMessageEmitter.emit(newMessage);
-    });
+      await this.hubConnection.start();
 
-    this.hubConnection.on('NewChatCreated', (chat: ChatDto) => {
-      Emitters.addChatEmitter.emit(chat);
-    });
+      this.hubConnection.on('ReceiveMessage', (message: MessageDto) => {
+        const newMessage: MessageModel = {
+          id: message.id,
+          text: message.text,
+          time: new Date(message.sendDate),
+          user: {
+            id: message.sender.id,
+            username: message.sender.userName,
+            image: './chat-image.jpg',
+          },
+          chatId: message.chatId,
+          sentiment: message.sentiment,
+        };
+
+        Emitters.newMessageEmitter.emit(newMessage);
+      });
+
+      this.hubConnection.on('NewChatCreated', (chat: ChatDto) => {
+        Emitters.addChatEmitter.emit(chat);
+      });
+    } catch (err: any) {
+      console.error('Error connecting to SignalR hub:', err);
+      console.error('Error details:', {
+        message: err.message,
+        stack: err.stack,
+        statusCode: err.statusCode,
+      });
+      throw err;
+    }
   }
 
   async disconnect() {

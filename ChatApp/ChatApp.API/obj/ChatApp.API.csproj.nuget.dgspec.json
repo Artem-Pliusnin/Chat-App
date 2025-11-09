@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj": {}
+    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj": {}
   },
   "projects": {
-    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj": {
+    "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj",
+        "projectUniqueName": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj",
         "projectName": "ChatApp.API",
-        "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/ChatApp.API.csproj",
+        "projectPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/ChatApp.API.csproj",
         "packagesPath": "/Users/mac/.nuget/packages/",
-        "outputPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.API/obj/",
+        "outputPath": "/Users/mac/Desktop/ChatApp/ChatApp/ChatApp.Api/obj/",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "/Users/mac/.nuget/NuGet/NuGet.Config"
@@ -166,9 +166,9 @@
               "target": "Package",
               "version": "[9.0.10, )"
             },
-            "Npgsql.EntityFrameworkCore.PostgreSQL": {
+            "Microsoft.EntityFrameworkCore.SqlServer": {
               "target": "Package",
-              "version": "[9.0.4, )"
+              "version": "[9.0.10, )"
             }
           },
           "imports": [

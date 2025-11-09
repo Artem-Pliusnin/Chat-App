@@ -14,10 +14,16 @@ public class MessageStatusConfiguration: IEntityTypeConfiguration<MessageStatus>
 
         builder.Property(m=> m.MessageId).IsRequired();
 
-        builder.HasOne(m=> m.User).WithMany(u => u.MessageStatuses).HasForeignKey(m=>m.UserId);
-
-        builder.HasOne(m=> m.Message).WithMany(m => m.MessageStatuses).HasForeignKey(m => m.MessageId);
-
+        builder.HasOne(m => m.Message)
+            .WithMany(m => m.MessageStatuses)
+            .HasForeignKey(m => m.MessageId)
+            .OnDelete(DeleteBehavior.Cascade);
+        
+        builder.HasOne(m => m.User)
+            .WithMany(u => u.MessageStatuses)
+            .HasForeignKey(m => m.UserId)
+            .OnDelete(DeleteBehavior.NoAction);
+        
         builder.Property(m => m.IsRead).HasDefaultValue(false);
         
         builder.HasIndex(m => new { m.UserId, m.MessageId }).IsUnique();

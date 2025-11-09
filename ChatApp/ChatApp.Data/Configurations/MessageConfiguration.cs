@@ -23,7 +23,6 @@ public class MessageConfiguration : IEntityTypeConfiguration<Message>
 
         builder.HasOne(m => m.Chat)
             .WithMany(c => c.Messages)
-            .HasForeignKey(c => c.ChatId)
-            .OnDelete(DeleteBehavior.Cascade);
+            .HasForeignKey(c => c.ChatId);
     }
 }
