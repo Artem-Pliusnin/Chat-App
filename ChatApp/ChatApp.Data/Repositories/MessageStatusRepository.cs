@@ -43,4 +43,22 @@ public class MessageStatusRepository : IMessageStatusRepository
             return result;
         }
     }
+
+    public async Task<OperationResult> SetAsReadForUser(Guid messageId, Guid userId)
+    {
+        try{
+            var status = await _context.MessageStatuses
+                .FirstOrDefaultAsync(ms => ms.MessageId == messageId && ms.UserId == userId);
+            status.IsRead = true;
+            _context.MessageStatuses.Update(status);
+
+            await _context.SaveChangesAsync();
+
+            return OperationResult.Success;
+        }
+        catch (Exception ex)
+        { 
+            return OperationResult.Failure;
+        }
+    }
 }

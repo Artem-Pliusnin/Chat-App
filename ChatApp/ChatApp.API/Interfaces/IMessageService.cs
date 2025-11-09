@@ -7,4 +7,8 @@ public interface IMessageService
 {
     Task<IEnumerable<MessageDto>> GetMessagesByChatIdAsync(Guid chatId);
     Task<MessageDto> CreateMessageAsync(CreateMessageDto dto, Guid senderId);
+
+    Task UpdateStatusesForMessages(IEnumerable<Guid> messagesId, Guid userId);
+    
+    Task UpdateStatusForMessage(Guid messagesId, Guid userId);
 }

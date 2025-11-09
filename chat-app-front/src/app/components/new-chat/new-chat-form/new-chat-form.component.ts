@@ -4,9 +4,9 @@ import { SelectedUserCardComponent } from '../selected-user-card/selected-user-c
 import { Emitters } from '../../../emitters/emitters';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { AuthorizationService } from '../../../services/authorization.service';
 import { ChatsService } from '../../../services/chats.service';
 import { ChatCardModel } from '../../../models/chat-card-model';
+import { MessagesService } from '../../../services/messages.service';
 
 @Component({
   selector: 'app-new-chat-form',
@@ -21,8 +21,8 @@ export class NewChatFormComponent implements OnInit {
   isNotEnoufUsers = false;
   selectedUsers: UserInfoModel[] = [];
 
-  private authService = inject(AuthorizationService);
   private chatsService = inject(ChatsService);
+  private messagesService = inject(MessagesService);
 
   OnSubmit() {
     if (!this.validate()) {
@@ -39,6 +39,7 @@ export class NewChatFormComponent implements OnInit {
             name: res.name,
             lastmessage: res.lastMessage,
             image: './chat-image.jpg',
+            hasUnreadMessages: res.hasUnreadMessages,
           };
           Emitters.addChatEmitter.emit(newChat);
           Emitters.addingNewChat.emit(false);

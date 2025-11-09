@@ -43,6 +43,20 @@ public class MessageService : IMessageService
         }).ToList();
     }
 
+    public async Task UpdateStatusesForMessages(IEnumerable<Guid> messagesId, Guid userId)
+    {
+        foreach (var messageId in messagesId)
+        {
+            await _statusRepository.SetAsReadForUser(messageId, userId);
+        }
+    }
+
+    public async Task UpdateStatusForMessage(Guid messageId, Guid userId)
+    {
+        await _statusRepository.SetAsReadForUser(messageId, userId);
+    }
+    
+
     public async Task<MessageDto> CreateMessageAsync(CreateMessageDto dto, Guid senderId)
     {
         try

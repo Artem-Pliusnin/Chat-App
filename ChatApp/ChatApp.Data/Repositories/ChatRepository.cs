@@ -26,7 +26,7 @@ public class ChatRepository : IChatRepository
     {
         return await _context.Chats
             .Include(c => c.Members)
-            .Include(c => c.Messages)
+            .Include(c => c.Messages).ThenInclude(m => m.MessageStatuses)
             .Where(c => c.Members.Any(m => m.UserId == userId))
             .OrderByDescending(c => c.Messages.Any()
                     ? c.Messages.Max(m => m.TimeStamp)

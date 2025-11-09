@@ -29,6 +29,10 @@ export class MessagesService {
     return this.http.post<MessageDto>(this.apiUrl, dto);
   }
 
+  markAsRead(messageId: string) {
+    this.http.post(`${this.apiUrl}/${messageId}/mark-as-read`, {}).subscribe();
+  }
+
   async connect(): Promise<void> {
     if (
       this.hubConnection &&

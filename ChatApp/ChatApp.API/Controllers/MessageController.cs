@@ -29,10 +29,50 @@ public class MessageController : ControllerBase
     [HttpGet("{chatId:guid}")]
     public async Task<IActionResult> GetMessagesByChatId(Guid chatId)
     {
+        var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
+
+        if (string.IsNullOrEmpty(email))
+        {
+            return Unauthorized();
+        }
+        
+        var currentUser = await _userService.GetCurrentUserInfo(email);
+        if (currentUser == null)
+        {
+            return Unauthorized();
+        }
+        
         var result = await _messageService.GetMessagesByChatIdAsync(chatId);
+        
+        var messagesId = result.Select(r => r.Id);
+        
+        await _messageService.UpdateStatusesForMessages(messagesId, currentUser.Id);
+        
         return Ok(result);
     }
+    
+    [Authorize]
+    [HttpPost("{messageId}/mark-as-read")]
+    public async Task<IActionResult> MarkAsRead(Guid messageId)
+    {
+        var email = User.Claims.FirstOrDefault(c => c.Type == ClaimTypes.Email)?.Value;
 
+        if (string.IsNullOrEmpty(email))
+        {
+            return Unauthorized();
+        }
+        
+        var currentUser = await _userService.GetCurrentUserInfo(email);
+        if (currentUser == null)
+        {
+            return Unauthorized();
+        }
+
+        await _messageService.UpdateStatusForMessage(messageId, currentUser.Id);
+
+        return Ok(new { Message = "Marked as read" });
+    }
+    
     [Authorize]
     [HttpPost]
     public async Task<IActionResult> CreateMessage([FromBody] CreateMessageDto dto)

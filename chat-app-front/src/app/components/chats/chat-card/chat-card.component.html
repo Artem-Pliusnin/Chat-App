@@ -4,4 +4,7 @@
     <span class="name">{{ chat.name }}</span>
     <span class="message"> {{ chat.lastmessage | truncate }}</span>
   </div>
+  @if(chat.hasUnreadMessages){
+  <div class="orange-point"></div>
+  }
 </button>

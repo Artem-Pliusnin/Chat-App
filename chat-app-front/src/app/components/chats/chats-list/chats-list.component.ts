@@ -6,6 +6,8 @@ import { AuthorizationService } from '../../../services/authorization.service';
 import { Emitters } from '../../../emitters/emitters';
 import { Router } from '@angular/router';
 import { ChatsService } from '../../../services/chats.service';
+import { NotificationService } from '../../../services/notification.service';
+import { MessagesService } from '../../../services/messages.service';
 
 @Component({
   selector: 'app-chats-list',
@@ -22,6 +24,8 @@ export class ChatsListComponent implements OnInit {
 
   private authservice = inject(AuthorizationService);
   private chatsservice = inject(ChatsService);
+  private messagesService = inject(MessagesService);
+  private notificationService = inject(NotificationService);
   private router = inject(Router);
 
   chats: ChatCardModel[] = [];
@@ -35,20 +39,7 @@ export class ChatsListComponent implements OnInit {
           image: './chat-image.jpg',
         });
         this.user = this.authservice.user;
-
-        this.chatsservice.getCurrentUserChats().subscribe({
-          next: (res) => {
-            this.chats = res.map((c) => ({
-              id: c.id,
-              name: c.name,
-              lastmessage: c.lastMessage,
-              image: './chat-image.jpg',
-            }));
-          },
-          error: (err) => {
-            console.log(err.error);
-          },
-        });
+        this.GetUserChats();
       },
       error: (err) => {
         this.router.navigate(['/log-in']);
@@ -56,14 +47,10 @@ export class ChatsListComponent implements OnInit {
     });
 
     Emitters.addChatEmitter.subscribe((chat) => {
-      this.chats.unshift(chat);
+      window.location.href = window.location.href;
     });
 
     Emitters.newMessageEmitter.subscribe((message) => {
-      if (message.chatId != this.selectedChatId) {
-        alert(message.sentiment);
-        console.log(message);
-      }
       const chatIndex = this.chats.findIndex((c) => c.id === message.chatId);
       if (chatIndex !== -1) {
         const chat = this.chats[chatIndex];
@@ -71,6 +58,11 @@ export class ChatsListComponent implements OnInit {
 
         this.chats.splice(chatIndex, 1);
         this.chats.unshift(chat);
+
+        if (message.chatId != this.selectedChatId) {
+          this.notificationService.show(message.text, chat.name);
+          chat.hasUnreadMessages = true;
+        }
       }
     });
   }
@@ -84,8 +76,26 @@ export class ChatsListComponent implements OnInit {
     Emitters.addingNewChat.emit(true);
   }
 
-  LogOut() {
+  async LogOut() {
     localStorage.removeItem('jwt');
+    await this.messagesService.disconnect();
     this.router.navigate(['/log-in']);
+  }
+
+  private GetUserChats() {
+    this.chatsservice.getCurrentUserChats().subscribe({
+      next: (res) => {
+        this.chats = res.map((c) => ({
+          id: c.id,
+          name: c.name,
+          lastmessage: c.lastMessage,
+          image: './chat-image.jpg',
+          hasUnreadMessages: c.hasUnreadMessages,
+        }));
+      },
+      error: (err) => {
+        console.log(err.error);
+      },
+    });
   }
 }

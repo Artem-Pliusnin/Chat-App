@@ -24,12 +24,21 @@ public class ChatService: IChatService
                     var lastMessage = c.Messages
                         .OrderByDescending(m => m.TimeStamp)
                         .FirstOrDefault();
-
+                    
+                    var status = false;
+                    if (lastMessage != null)
+                    {
+                        status =
+                            !(lastMessage.MessageStatuses.Where(m => m.UserId == userId).FirstOrDefault()?.IsRead ??
+                              true);
+                    }
+                    
                     return new ChatDto
                     {
                         Id = c.Id,
                         Name = c.Name,
-                        LastMessage = lastMessage?.Text ?? ""
+                        LastMessage = lastMessage?.Text ?? "",
+                        HasUnreadMessages = status,
                     };
                 }).ToList();
 

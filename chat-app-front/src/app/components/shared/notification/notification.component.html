@@ -1,0 +1,8 @@
+<div class="notification-container">
+  @for(n of notifications; track $index){
+  <div class="notification">
+    <span class="chat-name">{{ n.chat }}</span>
+    <span>{{ n.message | truncate }}</span>
+  </div>
+  }
+</div>

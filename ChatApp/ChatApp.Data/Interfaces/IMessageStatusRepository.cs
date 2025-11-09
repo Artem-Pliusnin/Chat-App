@@ -6,4 +6,5 @@ namespace ChatApp.Data.Interfaces;
 public interface IMessageStatusRepository
 {
     Task<OperationResult> CreateStatusesForMessage(Guid MessageId, IEnumerable<Guid> UsersIds);
+    Task<OperationResult> SetAsReadForUser(Guid messageId, Guid userId);
 }

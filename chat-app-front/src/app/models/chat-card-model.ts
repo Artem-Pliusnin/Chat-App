@@ -3,4 +3,5 @@ export type ChatCardModel = {
   name: string;
   image: string;
   lastmessage: string;
+  hasUnreadMessages: boolean;
 };

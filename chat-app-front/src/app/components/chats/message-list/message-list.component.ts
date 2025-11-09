@@ -38,6 +38,7 @@ export class MessageListComponent implements OnInit, OnChanges {
     Emitters.newMessageEmitter.subscribe((message) => {
       if (message.chatId == this.chatId) {
         this.messages.unshift(message);
+        this.messagesService.markAsRead(message.id);
       }
     });
   }
